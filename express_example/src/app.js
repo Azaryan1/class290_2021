@@ -11,6 +11,8 @@ const { writeInFile, readFromFile } = require('./commons/util');
 const { handleError } = require('./commons/middlewares/error-handler.middleware');
 const asyncHandler = require('express-async-handler');
 const { jwtMiddleware } = require('./commons/middlewares/auth.middleware');
+const admin = require('./users/admin.controller');
+
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
@@ -25,9 +27,14 @@ app.use(jwtMiddleware.unless({
 app.use('/users', users);
 app.use('/auth', auth);
 app.use('/posts', posts);
+app.use('/admin', admin);
 
 app.get('/', (req, res) => {
     res.send("Hello World!");
+})
+
+app.get('/users', (req, res) => {
+    res.send(users);
 })
 
 app.post('/createfile', asyncHandler(async (req, res) => {
@@ -35,10 +42,13 @@ app.post('/createfile', asyncHandler(async (req, res) => {
     res.send("File created successfully.");
 }))
 
+
 app.get('/readfile', asyncHandler(async (req, res) => {
     const data = await readFromFile();
     res.send(data);
 }))
+
+
 
 app.use(handleError);
 

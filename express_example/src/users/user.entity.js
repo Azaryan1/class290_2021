@@ -7,7 +7,8 @@ const schema = new Schema({
     username: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        min: 4
     },
 
     password: {
@@ -18,15 +19,36 @@ const schema = new Schema({
     firstName: {
         type: String,
         required: true,
+        trim: true
     },
 
     lastName: {
         type: String,
         required: true,
+        trim: true
     },
 
     role: {
         type: String,
+        enum: ['customer','admin'],
+        default: 'customer',
+        nullable: false,
+        required: true
+
+    },
+
+    locked: {
+        type: String,
+        enum: ['yes','no'],
+        default: 'no',
+        required: true
+    },
+
+    failedlogins: {
+        type: Number,
+        max: 3,
+        default: 0,
+        required: true
     }
 }, { collection: 'users' });
 

@@ -8,6 +8,9 @@ const jwtMiddleware = async (req, res, next) => {
         token = req.header('Authorization').split(' ')[1];
         const user = validateToken(token);
         const dbUser = await users.findOne(user.userId);
+        if(dbUser.locked === 'yes'){
+            throw new Error("The user is locked!");
+        }
         user.role = dbUser.role;
         req.user = user;
     } catch (err) {

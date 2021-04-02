@@ -62,6 +62,30 @@ class UserService {
 
         return user.save();
     }
+
+    async unlock(id) {
+        const user = await User.findOne(id);
+
+        if (!user) {
+            throw new NotFound(`User with id ${id} not found.`);
+        }
+
+        user.locked = 'no';
+
+        return user.save();
+    }
+
+    async lock(id) {
+        const user = await User.findOne(id);
+
+        if (!user) {
+            throw new NotFound(`User with id ${id} not found.`);
+        }
+
+        user.locked = 'yes';
+
+        return user.save();
+    }
 }
 
 module.exports = new UserService();

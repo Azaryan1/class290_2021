@@ -24,6 +24,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
     res.json(result);
 }))
 
+
 router.post('/', asyncHandler(async (req, res) => {
     const body = req.body;
     const result = await users.create(body);

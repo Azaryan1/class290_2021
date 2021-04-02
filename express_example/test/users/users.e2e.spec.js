@@ -6,7 +6,7 @@ const expect = chai.expect;
 
 describe("Testing users API", function () {
 
-    after(async function () {
+   after(async function () {
         await mongoose.connection.db.dropDatabase();
     })
 
@@ -24,6 +24,7 @@ describe("Testing users API", function () {
                 .expect(res => {
                     return expect(res.body).to.have.property('_id');
                 })
+
         })
 
         it.skip("Fails to create a user with existing username", function () {

@@ -1,4 +1,6 @@
 const fs = require('fs');
+const CUSTOMER_ROLE = "customer";
+const ADMIN_ROLE = "admin";
 
 module.exports = {
     writeInFile(content) {
@@ -19,5 +21,6 @@ module.exports = {
                 resolve(data);
             });
         });
-    }
+    },
+    CUSTOMER_ROLE,ADMIN_ROLE
 }
